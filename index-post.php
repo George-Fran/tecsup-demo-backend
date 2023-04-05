@@ -2,13 +2,13 @@
 include("conexion.php");
 $con = conexion();
 
-$documento = $_POST["documento"];
-$nombre = $_POST["nombre"];
-$apellido = $_POST["apellido"];
-$direccion = $_POST["direccion"];
-$celular = $_POST["celular"];
+$doc = $_POST["doc"];
+$nom = $_POST["nom"];
+$ape = $_POST["ape"];
+$dir = $_POST["dir"];
+$cel = $_POST["cel"];
 
-$sql = "insert into persona values(default,'$documento','$nombre','$apellido','$direccion','$celular')";
+$sql = "insert into persona values(default,'$doc','$nom','$ape','$dir','$cel')";
 pg_query($con, $sql);
 
 header("location:index.php");
