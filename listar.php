@@ -23,58 +23,55 @@
       <h5 class="my-0 mr-md-auto font-weight-normal"><img src="index2.png" style="width: 30px; position: absolute;"> <span style="position: relative; left: 35px;">Index</span></h5>
       <nav class="my-2 my-md-0 mr-md-3">
         <a class="p-2 text-dark" href="#">Registrar</a>
-        <a class="p-2 text-dark" href="listar.php">Listar</a>
+        <a class="p-2 text-dark" href="#">Actualizar</a>
         <a class="p-2 text-dark" href="#">Eliminar</a>
       </nav>
     </div>
 
     <div class="container px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-      <h1 class="display-4">Registrando datos with Railway</h1>
+      <h1 class="display-4">Tabla de registros</h1>
       <p class="lead">PostgreSQL + PHP</p>
     </div>
 
     <div class="container">
-      <div class="card">
-        <div class="card-body">
-          <form autocomplete="off" action="index-post.php" method="post">
-            <div class="row">
-              <div class="col-sm-4 col-4">
-                <div class="form-group">
-                  <label>Nro Documento</label>
-                  <input type="tex" name="doc" maxlength="8" class="form-control">
-                </div>
-              </div>
-              <div class="col-sm-4 col-4">
-                <div class="form-group">
-                  <label>Nombre</label>
-                  <input type="tex" name="nom" class="form-control">
-                </div>
-              </div>
-              <div class="col-sm-4 col-4">
-                <div class="form-group">
-                  <label>Apellidos</label>
-                  <input type="tex" name="ape" class="form-control">
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-4 col-4">
-                <div class="form-group">
-                  <label>Direccion</label>
-                  <input type="tex" name="dir" class="form-control">
-                </div>
-              </div>
-              <div class="col-sm-4 col-4">
-                <div class="form-group">
-                  <label>Celular</label>
-                  <input type="tex" name="cel" class="form-control">
-                </div>
-              </div>
-            </div>
-            <input type="submit" class="btn btn-primary float-right" value="Registrar">
-          </form>
-        </div>
-      </div>
+
+    <?php
+
+$host = "host=containers-us-west-40.railway.app";
+$port = "port=5965";
+$dbname = "dbname=railway";
+$user = "user=postgres";
+$password = "password=ImXWTfnoVNeO4Av9eXLI";
+
+$connn = pg_connect("$host $port $dbname $user $password");
+if (!$connn) {
+    die("Error al conectar con la base de datos: " . pg_last_error());
+}
+
+
+$sql = "SELECT * FROM persona";
+$result = pg_query($connn, $sql);
+if (pg_num_rows($result) > 0) {
+    // Imprimir la tabla de datos
+    echo "<table>";
+    echo "<tr><th>Documento</th><th>Nombre</th><th>Apellido</th><th>Dirección</th><th>Celular</th></tr>";
+    while ($row = pg_fetch_assoc($result)) {
+        echo "<tr>";
+        echo "<td>" . $row["doc"] . "</td>";
+        echo "<td>" . $row["nom"] . "</td>";
+        echo "<td>" . $row["ape"] . "</td>";
+        echo "<td>" . $row["dir"] . "</td>";
+        echo "<td>" . $row["cel"] . "</td>";
+        echo "</tr>";
+    }
+    echo "</table>";
+} else {
+    echo "No se encontraron resultados.";
+}
+// Cerrar la conexión a la base de datos
+pg_close($connn);
+?>
+
 
       <footer class="pt-4 my-md-5 pt-md-5 border-top">
         <div class="row">
