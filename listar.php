@@ -57,11 +57,11 @@ if (pg_num_rows($result) > 0) {
     echo "<tr><th>Documento</th><th>Nombre</th><th>Apellido</th><th>Dirección</th><th>Celular</th></tr>";
     while ($row = pg_fetch_assoc($result)) {
         echo "<tr>";
-        echo "<td>" . $row["doc"] . "</td>";
-        echo "<td>" . $row["nom"] . "</td>";
-        echo "<td>" . $row["ape"] . "</td>";
-        echo "<td>" . $row["dir"] . "</td>";
-        echo "<td>" . $row["cel"] . "</td>";
+        echo "<td>" . $row["documento"] . "</td>";
+        echo "<td>" . $row["nombre"] . "</td>";
+        echo "<td>" . $row["apellido"] . "</td>";
+        echo "<td>" . $row["direccion"] . "</td>";
+        echo "<td>" . $row["celular"] . "</td>";
         echo "</tr>";
     }
     echo "</table>";
